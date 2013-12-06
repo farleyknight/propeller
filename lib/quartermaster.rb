@@ -18,8 +18,8 @@ module Quartermaster
 
     # Log to both the q-worker's file and a mutual log file for all q-workers.
     def debug(message)
-      individual.debug("[q-worker #{worker_id}] #{message}")
-      mutual.debug("[q-worker #{worker_id}] #{message}")
+      @individual.debug("[q-worker #{worker_id}] #{message}")
+      @mutual.debug("[q-worker #{worker_id}] #{message}")
     end
   end
 
