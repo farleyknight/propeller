@@ -1,3 +1,3 @@
 module Quartermaster
-  VERSION = "0.0.2a"
+  VERSION = "0.0.2b"
 end
