@@ -124,11 +124,11 @@ module Quartermaster
     # to the log file.
     def run!
       begin
-        w.run
+        run
       rescue => error
-        w.debug(error.message)
+        debug(error.message)
         error.backtrace.each do |line|
-          w.debug(line)
+          debug(line)
         end
       end
     end
