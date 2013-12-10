@@ -1,6 +1,13 @@
 require "quartermaster/engine"
 
 module Quartermaster
+  mattr_accessor :config
+
+  def self.config(&block)
+    @config = Config.new
+    block.call(@config)
+  end
+
   module Logging
     def individual
       @individual     ||= Logger.new(Rails.root.join("log/q-worker-#{worker_id}.log"))
@@ -24,31 +31,33 @@ module Quartermaster
   end
 
   class Config
-    class << self
-      # TODO: Make this configurable by the host Rails application.
-      def worker_job_class
-        WorkerJob
-      end
+    attr_accessor(
+      :worker_job_class_name, :throttle_limits, :polling_interval,
+      :throttle_interval,     :idle_period
+    )
 
-      # TODO: Make this configurable by the host Rails application.
-      def throttle_limits
-        {1.minute => 10}
-      end
+    def worker_job_class
+      worker_job_class_name.constantize
+    end
 
-      # TODO: Make this configurable by the host Rails application.
-      def polling_interval
-        2.seconds
-      end
+    def worker_job_class_name
+      @worker_job_class_name || "WorkerJob"
+    end
 
-      # TODO: Make this configurable by the host Rails application.
-      def throttle_interval
-        1.second
-      end
+    def throttle_limits
+      @throttle_limits || {1.minute => 10}
+    end
 
-      # TODO: Make this configurable by the host Rails application.
-      def idle_period
-        5.minutes
-      end
+    def polling_interval
+      @polling_interval || 2.seconds
+    end
+
+    def throttle_interval
+      @throttle_interval || 1.second
+    end
+
+    def idle_period
+      @idle_period || 5.minutes
     end
   end
 
@@ -76,14 +85,7 @@ module Quartermaster
         w.debug("Exiting..")
       end
 
-      begin
-        w.run
-      rescue => error
-        w.debug(error.message)
-        error.backtrace.each do |line|
-          w.debug(line)
-        end
-      end
+      w.run!
     end
 
     # Name the worker for logging
@@ -91,6 +93,11 @@ module Quartermaster
       @worker_id   = id
       @worker_name = "worker-#{id}"
       debug("Starting worker")
+    end
+
+    # Access the Quartermaster.config object as an instance method
+    def config
+      Quartermaster.config
     end
 
     # We continue running jobs until we hit the throttling
@@ -101,13 +108,26 @@ module Quartermaster
       loop do
         while under_throttling_limits?
           run_one_job!
-          sleep(Config.polling_interval)
+          sleep(config.polling_interval)
         end
         debug("Waiting for job rate to go under throttling limits")
         # When we reach this point, we've hit the throttling
         # limit and sleep for a period of time before checking
         # the throttling constraints again.
-        sleep(Config.throttle_interval)
+        sleep(config.throttle_interval)
+      end
+    end
+
+    # Perform the worker loop, but catch any possible errors and print them
+    # to the log file.
+    def run!
+      begin
+        w.run
+      rescue => error
+        w.debug(error.message)
+        error.backtrace.each do |line|
+          w.debug(line)
+        end
       end
     end
 
@@ -139,13 +159,13 @@ module Quartermaster
         debug("Unlocked job #{job.worker_job.id}")
       else
         debug("Couldn't find a job to reserve. Idling..")
-        sleep(Config.idle_period)
+        sleep(config.idle_period)
       end
     end
 
     # Check if we're under the throttling limits
     def under_throttling_limits?
-      Config.throttle_limits.each do |period, total|
+      config.throttle_limits.each do |period, total|
         count = performed_jobs_count(period)
         debug("#{count} jobs peformed within #{period}")
         if count >= total
@@ -164,12 +184,12 @@ module Quartermaster
     #
     # So there were 500 jobs performed within the last hour.
     def performed_jobs_count(period)
-      Config.worker_job_class.throttle_limit(period)
+      config.worker_job_class.throttle_limit(period)
     end
 
     # Lock the job and return the job's AR object.
     def lock_job!
-      Config.worker_job_class.unreserved.limit(1).lock(true).first
+      config.worker_job_class.unreserved.limit(1).lock(true).first
     end
 
     # Grab the first unreserved job in the database table, and
@@ -178,7 +198,7 @@ module Quartermaster
       worker_job = nil
       start      = Time.now
 
-      Config.worker_job_class.transaction do
+      config.worker_job_class.transaction do
         worker_job = lock_job!
         if worker_job.blank?
           debug("No job to reserve!")
