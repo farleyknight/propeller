@@ -10,4 +10,18 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_tree .
+
+// NVD3
+//
+//= require d3.v2
+//= require nv.d3
+//= require nvd3/tooltip
+//= require nvd3/utils
+//= require nvd3/models/legend
+//= require nvd3/models/axis
+//= require nvd3/models/multiBar
+//= require nvd3/models/multiBarChart
+
+//
+//
+//= require quartermaster

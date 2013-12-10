@@ -1,0 +1,29 @@
+<div style="margin: 0px auto;">
+  <div style="margin: 0em 2em;">
+    <h1 class="pull-left">Quartermaster</h1>
+
+    <div class="pull-right" style="margin-top: 10px;">
+      <div class="pull-left" style="padding: 7px;">
+        <b>Completed Jobs by</b>
+      </div>
+
+      <ul id="completed-jobs-chart-type" class="nav nav-pills pull-left">
+        <li class="active" data-url="<%= daily_completed_path %>">
+          <a href="#">Day</a>
+        </li>
+
+        <li data-url="<%= hourly_completed_path %>">
+          <a href="#">Hour</a>
+        </li>
+
+        <li data-url="<%= minutely_completed_path %>">
+          <a href="#">Minute</a>
+        </li>
+      </ul>
+    </div>
+
+    <div style="height: 500px;" id="completed-jobs-chart">
+      <svg></svg>
+    </div>
+  </div>
+</div>
