@@ -1,5 +1,52 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
+$(function() {
+  var testdata = [
+    {
+      key: "One",
+      value: 5
+    },
+    {
+      key: "Two",
+      value: 2
+    },
+    {
+      key: "Three",
+      value: 9
+    },
+    {
+      key: "Four",
+      value: 7
+    },
+    {
+      key: "Five",
+      value: 4
+    },
+    {
+      key: "Six",
+      value: 3
+    },
+    {
+      key: "Seven",
+      value: .5
+    }
+  ];
+
+  nv.addGraph(function() {
+    var chart = nv.models.pieChart()
+      .x(function(d) { return d.key })
+      .y(function(d) { return d.value });
+
+    d3.select("#worker-jobs-pie-chart svg")
+      .datum(testdata)
+      .transition().duration(1200)
+      .call(chart);
+
+    return chart;
+  });
+});
+
+
 
 $(function() {
   var chart;

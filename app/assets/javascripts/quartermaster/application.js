@@ -18,14 +18,17 @@
 
 // NVD3
 //
-//= require d3.v2
+//= require d3.v3
 //= require nv.d3
-//= require nvd3/tooltip
-//= require nvd3/utils
-//= require nvd3/models/legend
-//= require nvd3/models/axis
-//= require nvd3/models/multiBar
-//= require nvd3/models/multiBarChart
+
+// require models/legend
+// require models/axis
+//= require models/pie
+//= require models/pieChart
+// require models/multiBar
+// require models/multiBarChart
+// require tooltip
+//= require utils
 
 //
 //
