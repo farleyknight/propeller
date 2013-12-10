@@ -191,7 +191,7 @@ module Quartermaster
 
       unless worker_job.blank?
         debug("Transaction duration: #{Time.now - start} seconds")
-        Quartmaster::Worker::Job.new(self, worker_job)
+        Quartermaster::Worker::Job.new(self, worker_job)
       end
     end
 
