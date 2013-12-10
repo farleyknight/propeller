@@ -6,7 +6,7 @@ module Quartermaster
       render json: WorkerJob.daily_report.to_json
     end
 
-    def weekly
+    def hourly
       render json: WorkerJob.hourly_report.to_json
     end
 

@@ -11,6 +11,11 @@
 // about supported directives.
 //
 
+// jQuery
+//
+//= require jquery
+//= require jquery_ujs
+
 // NVD3
 //
 //= require d3.v2
@@ -24,4 +29,4 @@
 
 //
 //
-//= require quartermaster
+//= require quartermaster/worker_jobs
