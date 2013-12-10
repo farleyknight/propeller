@@ -1,11 +1,13 @@
 require "quartermaster/engine"
 
 module Quartermaster
-  mattr_accessor :config
-
   def self.config(&block)
-    @config = Config.new
-    block.call(@config)
+    if block_given?
+      @config = Config.new
+      block.call(@config)
+    else
+      @config
+    end
   end
 
   module Logging
