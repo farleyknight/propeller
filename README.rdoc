@@ -1,3 +1,5 @@
 = Quartermaster
 
-This project rocks and uses MIT-LICENSE.
+How to start a worker:
+
+$ WORKER_ID=1

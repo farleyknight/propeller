@@ -52,9 +52,46 @@ module Quartermaster
     end
   end
 
+  # Quartermaster::Worker is the main worker that runs all jobs.
+  # It's initialized and started inside the `quartermaster:run`
+  # rake task.
   class Worker
     attr_accessor :worker_id
     include Logging
+
+    # Reduce the Quartermaster::Worker rake task to just one method: this one.
+    def self.start!(env)
+      raise "Cannot start Quartermaster::Worker without a WORKER_ID!" if env["WORKER_ID"].blank?
+      raise "Cannot start Quartermaster::Worker without a PIDFILE!"   if env["PIDFILE"].blank?
+
+      if env['PIDFILE']
+        File.open(env['PIDFILE'], 'w') do |f|
+          f << Process.pid
+        end
+      end
+
+      w = Worker.new(env["WORKER_ID"])
+
+      at_exit do
+        w.debug("Exiting..")
+      end
+
+      begin
+        w.run
+      rescue => error
+        w.debug(error.message)
+        error.backtrace.each do |line|
+          w.debug(line)
+        end
+      end
+    end
+
+    # Name the worker for logging
+    def initialize(id)
+      @worker_id   = id
+      @worker_name = "worker-#{id}"
+      debug("Starting worker")
+    end
 
     # We continue running jobs until we hit the throttling
     # constraints. If even one of the throttling constraints
@@ -154,7 +191,7 @@ module Quartermaster
 
       unless worker_job.blank?
         debug("Transaction duration: #{Time.now - start} seconds")
-        Quartmaster::Job.new(self, worker_job)
+        Quartmaster::Worker::Job.new(self, worker_job)
       end
     end
 
