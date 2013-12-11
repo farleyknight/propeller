@@ -34,13 +34,16 @@ $(function() {
 
   nv.addGraph(function() {
     var chart = nv.models.pieChart()
-      .x(function(d) { return d.key })
-      .y(function(d) { return d.value });
+      .showLegend(false)
+      .x(function(d) { return d[0] })
+      .y(function(d) { return d[1] });
 
-    d3.select("#worker-jobs-pie-chart svg")
-      .datum(testdata)
-      .transition().duration(1200)
-      .call(chart);
+    d3.json("/quartermaster/counts", function(data) {
+      d3.select("#worker-jobs-pie-chart svg")
+        .datum(data)
+        .transition().duration(1200)
+        .call(chart);
+    });
 
     return chart;
   });
@@ -68,6 +71,7 @@ $(function() {
 
   nv.addGraph(function() {
     chart = nv.models.multiBarChart()
+      .showLegend(false)
       .x(function(d) { return d[0] })
       .y(function(d) { return d[1] })
       .clipEdge(true);
