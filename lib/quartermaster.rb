@@ -1,4 +1,5 @@
 require "quartermaster/engine"
+require 'lumberjack'
 
 module Quartermaster
   def self.config(&block)
