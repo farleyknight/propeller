@@ -1,25 +1,27 @@
 <div style="margin: 0px auto;">
   <div style="margin: 0em 2em;">
-    <h1 class="pull-left">Quartermaster</h1>
+    <div class="span12" style="margin-top: 10px;">
+      <h1 class="pull-left">Quartermaster</h1>
 
-    <div class="pull-right" style="margin-top: 10px;">
-      <div class="pull-left" style="padding: 7px;">
-        <b>Completed Jobs by</b>
+      <div class="pull-right" style="margin-top: 10px;">
+        <div class="pull-left" style="padding: 7px;">
+          <b>Completed Jobs by</b>
+        </div>
+
+        <ul id="completed-jobs-chart-type" class="nav-pills-active nav nav-pills pull-left">
+          <li class="active" data-url="<%= daily_completed_path %>">
+            <a href="#">Day</a>
+          </li>
+
+          <li data-url="<%= hourly_completed_path %>">
+            <a href="#">Hour</a>
+          </li>
+
+          <li data-url="<%= minutely_completed_path %>">
+            <a href="#">Minute</a>
+          </li>
+        </ul>
       </div>
-
-      <ul id="completed-jobs-chart-type" class="nav nav-pills pull-left">
-        <li class="active" data-url="<%= daily_completed_path %>">
-          <a href="#">Day</a>
-        </li>
-
-        <li data-url="<%= hourly_completed_path %>">
-          <a href="#">Hour</a>
-        </li>
-
-        <li data-url="<%= minutely_completed_path %>">
-          <a href="#">Minute</a>
-        </li>
-      </ul>
     </div>
 
     <div class="span12" style="margin-top: 50px;">
@@ -30,6 +32,49 @@
       <div class="span8" style="height: 300px;" id="completed-jobs-chart">
         <svg></svg>
       </div>
+    </div>
+
+    <!-- This should NOT be here. It should be customized by the user. -->
+    <div class="span12">
+      <div class="span4" style="margin-left: 0px;">
+        <h3>Recent Jobs</h3>
+      </div>
+
+      <div class="span6 pull-right">
+        <ul id="recent-jobs-type" class="nav-pills-active nav nav-pills pull-right">
+          <li class="active" data-url="/quartermaster/all">
+            <a href="#">All</a>
+          </li>
+
+          <li data-url="/quartermaster/completed">
+            <a href="#">Completed</a>
+          </li>
+
+          <li data-url="/quartermaster/queued">
+            <a href="#">Queued</a>
+          </li>
+
+          <li data-url="/quartermaster/failed">
+            <a href="#">Failed</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="span12">
+      <table id="recent-jobs-table" class="table">
+        <thead>
+          <tr>
+            <% Quartermaster.config.worker_job_class.recent_jobs_columns.each do |key, value| %>
+              <th><%= key %></th>
+            <% end %>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%= render partial: "table", locals: {jobs: @recent_jobs} %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

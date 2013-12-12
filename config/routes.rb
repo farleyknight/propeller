@@ -1,6 +1,11 @@
 Quartermaster::Engine.routes.draw do
   root to: "worker_jobs#index"
 
+  get "all"                => "worker_jobs#all"
+  get "completed"          => "worker_jobs#completed"
+  get "queued"             => "worker_jobs#queued"
+  get "failed"             => "worker_jobs#failed"
+
   get "counts"             => "worker_jobs#counts",             as: :counts
 
   get "completed/daily"    => "worker_jobs/completed#daily",    as: :daily_completed

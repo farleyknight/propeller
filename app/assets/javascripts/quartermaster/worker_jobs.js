@@ -1,37 +1,6 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 $(function() {
-  var testdata = [
-    {
-      key: "One",
-      value: 5
-    },
-    {
-      key: "Two",
-      value: 2
-    },
-    {
-      key: "Three",
-      value: 9
-    },
-    {
-      key: "Four",
-      value: 7
-    },
-    {
-      key: "Five",
-      value: 4
-    },
-    {
-      key: "Six",
-      value: 3
-    },
-    {
-      key: "Seven",
-      value: .5
-    }
-  ];
-
   nv.addGraph(function() {
     var chart = nv.models.pieChart()
       .showLegend(false)
@@ -49,25 +18,77 @@ $(function() {
   });
 });
 
+$(function() {
+  $(".nav-pills-active li").click(function() {
+    $(this).parent().find(".active").removeClass("active");
+    $(this).addClass("active");
+  });
 
+  $("#completed-jobs-chart-type li").click(function() {
+    loadChart(chart, $(this).data('url'));
+  });
+
+  function loadTable(url) {
+    $.get(url).done(function(data) {
+      $("#recent-jobs-table tbody").html(data);
+    });
+  };
+
+  $("#recent-jobs-type li").click(function() {
+    loadTable($(this).data('url'));
+  });
+});
 
 $(function() {
   var chart;
 
   function loadChart(chart, url) {
+    // This should change based on the graph type.
+    chart.xAxis
+      .ticks(d3.time.hour, 24 * 7)
+      .tickFormat(function(d) {
+        if (url.match(/minutely/)) {
+          return d3.time.format('%I:%M%p')(new Date(d))
+        }
+
+        if (url.match(/hourly/)) {
+          return d3.time.format('%x')(new Date(d))
+        }
+
+        if (url.match(/daily/)) {
+          return d3.time.format('%x')(new Date(d))
+        }
+      });
+
+    chart.tooltip(function(key, y, e, graph) {
+      var datetime;
+
+      if (url.match(/daily/)) {
+        datetime = d3.time.format("%x")(new Date(graph.point[0]));
+      }
+
+      if (url.match(/hourly/)) {
+        datetime = d3.time.format("%x - %I:%M%p")(new Date(graph.point[0]));
+      }
+
+      if (url.match(/minutely/)) {
+        datetime = d3.time.format("%I:%M%p")(new Date(graph.point[0]));
+      }
+
+      return "<div style='text-align: center;'>" +
+        "<b>" + key + "</b>" + "<p>" + e + " at " + datetime + "</p>" +
+        "</div>"
+      ;
+    })
+
     d3.json(url, function(data) {
       d3.select('#completed-jobs-chart svg')
         .datum(data)
-        .transition().duration(500).call(chart);
+        .transition()
+        .duration(500)
+        .call(chart);
     });
   }
-
-  $("#completed-jobs-chart-type li").click(function() {
-    $(this).parent().find("li").removeClass("active");
-    $(this).addClass("active");
-
-    loadChart(chart, $(this).data('url'));
-  });
 
   nv.addGraph(function() {
     chart = nv.models.multiBarChart()
@@ -75,10 +96,6 @@ $(function() {
       .x(function(d) { return d[0] })
       .y(function(d) { return d[1] })
       .clipEdge(true);
-
-    chart.xAxis
-      .ticks(d3.time.hour, 24 * 7)
-      .tickFormat(function(d) { return d3.time.format('%x')(new Date(d)) });
 
     chart.yAxis.tickFormat(d3.format(',.1f'));
 

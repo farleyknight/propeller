@@ -20,16 +20,8 @@
 //
 //= require d3.v3
 //= require nv.d3
-
-// require models/legend
-// require models/axis
-//= require models/pie
-//= require models/pieChart
-// require models/multiBar
-// require models/multiBarChart
-// require tooltip
 //= require utils
 
-//
+// Worker jobs
 //
 //= require quartermaster/worker_jobs

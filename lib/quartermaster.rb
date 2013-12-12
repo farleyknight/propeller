@@ -235,10 +235,9 @@ module Quartermaster
       def perform!
         begin
           run_job!
+          finish!
         rescue => error
           handle_error(error)
-        ensure
-          finish!
         end
       end
 
