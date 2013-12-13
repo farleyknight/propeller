@@ -3,7 +3,7 @@ require_dependency "quartermaster/application_controller"
 module Quartermaster
   class WorkerJobsController < ApplicationController
     def index
-      @recent_jobs = WorkerJob.order("updated_at desc").limit(50)
+      @recent_jobs = all_jobs
     end
 
     def all
@@ -27,7 +27,7 @@ module Quartermaster
     end
 
     def counts
-      render json: WorkerJob.group(:status).count.to_a
+      render json: worker_job_class.group(:status).count.to_a
     end
 
     protected

@@ -18,6 +18,7 @@ module Quartermaster
   module WorkerJobMethods
     def self.included(base)
       base.class_eval do
+        validates_uniqueness_of :service_key, scope: [:datetime, :klass]
         has_many :job_failures
       end
       base.send :include, InstanceMethods
@@ -58,7 +59,7 @@ module Quartermaster
         })
 
         # Retire jobs that fail over and over.
-        if failures.where("created_at > ?", 5.minutes.ago).count >= 10
+        if failures.where("created_at > ?", 10.minutes.ago).count >= 10
           update_attributes(status: "retired")
         end
       end
