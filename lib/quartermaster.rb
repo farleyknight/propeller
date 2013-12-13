@@ -18,7 +18,6 @@ module Quartermaster
   module WorkerJobMethods
     def self.included(base)
       base.class_eval do
-        validates_uniqueness_of :service_key, scope: [:datetime, :klass]
         has_many :job_failures
       end
       base.send :include, InstanceMethods
