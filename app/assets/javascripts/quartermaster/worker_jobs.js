@@ -18,30 +18,8 @@ $(function() {
   });
 });
 
-$(function() {
-  $(".nav-pills-active li").click(function() {
-    $(this).parent().find(".active").removeClass("active");
-    $(this).addClass("active");
-  });
-
-  $("#completed-jobs-chart-type li").click(function() {
-    loadChart(chart, $(this).data('url'));
-  });
-
-  function loadTable(url) {
-    $.get(url).done(function(data) {
-      $("#recent-jobs-table tbody").html(data);
-    });
-  };
-
-  $("#recent-jobs-type li").click(function() {
-    loadTable($(this).data('url'));
-  });
-});
 
 $(function() {
-  var chart;
-
   function loadChart(chart, url) {
     // This should change based on the graph type.
     chart.xAxis
@@ -90,8 +68,27 @@ $(function() {
     });
   }
 
+  function loadTable(url) {
+    $.get(url).done(function(data) {
+      $("#recent-jobs-table tbody").html(data);
+    });
+  };
+
+  $(".nav-pills-active li").click(function() {
+    $(this).parent().find(".active").removeClass("active");
+    $(this).addClass("active");
+  });
+
+  $("#completed-jobs-chart-type li").click(function() {
+    loadChart(chart, $(this).data('url'));
+  });
+
+  $("#recent-jobs-type li").click(function() {
+    loadTable($(this).data('url'));
+  });
+
   nv.addGraph(function() {
-    chart = nv.models.multiBarChart()
+    window.chart = nv.models.multiBarChart()
       .showLegend(false)
       .x(function(d) { return d[0] })
       .y(function(d) { return d[1] })
