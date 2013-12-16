@@ -1,11 +1,11 @@
-require "quartermaster/engine"
-require "quartermaster/logging"
-require "quartermaster/config"
-require "quartermaster/worker"
+require "propeller/engine"
+require "propeller/logging"
+require "propeller/config"
+require "propeller/worker"
 
 require 'lumberjack'
 
-module Quartermaster
+module Propeller
   def self.config(&block)
     if block_given?
       @config = Config.new
@@ -31,12 +31,11 @@ module Quartermaster
         self.save!
       end
 
-      # TODO: Rename columns for beginning_of_* to started_at_beginning_of_*
       def started_at=(other)
-        self[:started_at]          = other
-        self[:beginning_of_minute] = other.beginning_of_minute
-        self[:beginning_of_hour]   = other.beginning_of_hour
-        self[:beginning_of_day]    = other.beginning_of_day
+        self[:started_at]                     = other
+        self[:started_at_beginning_of_minute] = other.beginning_of_minute
+        self[:started_at_beginning_of_hour]   = other.beginning_of_hour
+        self[:started_at_beginning_of_day]    = other.beginning_of_day
       end
 
       def finish!

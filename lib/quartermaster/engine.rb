@@ -1,5 +1,5 @@
-module Quartermaster
+module Propeller
   class Engine < ::Rails::Engine
-    isolate_namespace Quartermaster
+    isolate_namespace Propeller
   end
 end

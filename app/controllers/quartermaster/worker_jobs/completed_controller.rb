@@ -1,6 +1,6 @@
-require_dependency "quartermaster/application_controller"
+require_dependency "propeller/application_controller"
 
-module Quartermaster
+module Propeller
   class WorkerJobs::CompletedController < ApplicationController
     def daily
       render json: worker_job_class.daily_report.to_json
@@ -16,7 +16,7 @@ module Quartermaster
 
     protected
     def worker_job_class
-      Quartermaster.config.worker_job_class
+      Propeller.config.worker_job_class
     end
   end
 end

@@ -1,4 +1,4 @@
-module Quartermaster
+module Propeller
   module Logging
     def individual
       @individual     ||= Logger.new(Rails.root.join("log/q-worker-#{worker_id}.log"))

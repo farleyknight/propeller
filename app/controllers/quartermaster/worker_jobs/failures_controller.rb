@@ -1,6 +1,6 @@
-require_dependency "quartermaster/application_controller"
+require_dependency "propeller/application_controller"
 
-module Quartermaster
+module Propeller
   class WorkerJobs::FailuresController < ApplicationController
     def index
     end

@@ -1,6 +1,6 @@
-require_dependency "quartermaster/application_controller"
+require_dependency "propeller/application_controller"
 
-module Quartermaster
+module Propeller
   class WorkerJobsController < ApplicationController
     def index
       @recent_jobs = all_jobs
@@ -32,11 +32,11 @@ module Quartermaster
 
     protected
     def worker_job_class
-      Quartermaster.config.worker_job_class
+      Propeller.config.worker_job_class
     end
 
     def render_table(jobs)
-      render text: render_to_string(partial: "quartermaster/worker_jobs/table", locals: {jobs: jobs})
+      render text: render_to_string(partial: "propeller/worker_jobs/table", locals: {jobs: jobs})
     end
 
     def all_jobs

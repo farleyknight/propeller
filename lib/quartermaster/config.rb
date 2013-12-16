@@ -1,4 +1,4 @@
-module Quartermaster
+module Propeller
   class Config
     attr_accessor(
       :worker_job_class_name, :throttle_limits, :polling_interval,

@@ -1,4 +1,4 @@
-Quartermaster::Engine.routes.draw do
+Propeller::Engine.routes.draw do
   root to: "worker_jobs#index"
 
   get "all"                => "worker_jobs#all"

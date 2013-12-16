@@ -1,15 +1,15 @@
-module Quartermaster
-  # Quartermaster::Worker is the main worker that runs all jobs.
-  # It's initialized and started inside the `quartermaster:run`
+module Propeller
+  # Propeller::Worker is the main worker that runs all jobs.
+  # It's initialized and started inside the `propeller:run`
   # rake task.
   class Worker
     attr_accessor :worker_id
     include Logging
 
-    # Reduce the Quartermaster::Worker rake task to just one method: this one.
+    # Reduce the Propeller::Worker rake task to just one method: this one.
     def self.start!(env)
-      raise "Cannot start Quartermaster::Worker without a WORKER_ID!" if env["WORKER_ID"].blank?
-      raise "Cannot start Quartermaster::Worker without a PIDFILE!"   if env["PIDFILE"].blank?
+      raise "Cannot start Propeller::Worker without a WORKER_ID!" if env["WORKER_ID"].blank?
+      raise "Cannot start Propeller::Worker without a PIDFILE!"   if env["PIDFILE"].blank?
 
       if env['PIDFILE']
         File.open(env['PIDFILE'], 'w') do |f|
@@ -33,9 +33,9 @@ module Quartermaster
       debug("Starting worker")
     end
 
-    # Access the Quartermaster.config object as an instance method
+    # Access the Propeller.config object as an instance method
     def config
-      Quartermaster.config
+      Propeller.config
     end
 
     # We continue running jobs until we hit the throttling
@@ -149,7 +149,7 @@ module Quartermaster
 
       unless worker_job.blank?
         debug("Transaction duration: #{Time.now - start} seconds")
-        Quartermaster::Worker::Job.new(self, worker_job)
+        Propeller::Worker::Job.new(self, worker_job)
       end
     end
 

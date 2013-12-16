@@ -1,15 +1,15 @@
 $:.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
-require "quartermaster/version"
+require "propeller/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "quartermaster"
-  s.version     = Quartermaster::VERSION
+  s.name        = "propeller"
+  s.version     = Propeller::VERSION
   s.authors     = ["Farley Knight"]
-  s.email       = ["farleyknight@gmail.com"]
-  s.homepage    = "http://github.com/farleyknight/quartermaster"
+  s.email       = ["farley@farleyknight.com"]
+  s.homepage    = "http://github.com/farleyknight/propeller"
   s.summary     = "Database-backed job queue system with throttling."
   s.description = "Database-backed job queue system with throttling."
 
