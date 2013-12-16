@@ -3,7 +3,6 @@ require 'rails/generators/active_record'
 module Propeller
   class WorkerJobsGenerator < Rails::Generators::Base
     include Rails::Generators::Migration
-    extend NextMigrationVersion
 
     source_root File.expand_path('../templates', __FILE__)
 
