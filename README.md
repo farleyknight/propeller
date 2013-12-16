@@ -1,16 +1,15 @@
-# Quartermaster
-
+# Propeller
 
 ## Installation
 
-Run `rails g quartermaster:install` and you'll get:
+Run `rails g propeller:install` and you'll get:
 
 ### Initializer
 
-This file configures Quartermaster for your setup:
+This file configures Propeller for your setup:
 
 ```ruby
-Quartermaster.config do |c|
+Propeller.config do |c|
   c.worker_job_class_name = "WorkerJob"
   c.throttle_limits       = {
     1.minute => 14
@@ -23,11 +22,11 @@ end
 
 ### Admin Panel
 
-This line adds the Quartermaster admin panel `config/routes.rb`:
+This line adds the Propeller admin panel `config/routes.rb`:
 
 ```ruby
 MyApp::Application.routes.draw do
-  mount Quartermaster::Engine => "/quartermaster"
+  mount Propeller::Engine => "/propeller"
 end
 ```
 
@@ -49,4 +48,3 @@ This is how your jobs table will look in the database:
     t.date      "started_at_beginning_of_day"
   end
 ```
-

@@ -24,4 +24,4 @@
 
 // Worker jobs
 //
-//= require quartermaster/worker_jobs
+//= require propeller/worker_jobs

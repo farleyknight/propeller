@@ -1,7 +1,7 @@
 <div style="margin: 0px auto;">
   <div style="margin: 0em 2em;">
     <div class="span12" style="margin-top: 10px;">
-      <h1 class="pull-left">Quartermaster</h1>
+      <h1 class="pull-left">Propeller</h1>
 
       <div class="pull-right" style="margin-top: 10px;">
         <div class="pull-left" style="padding: 7px;">
@@ -39,7 +39,7 @@
       <div class="navbar">
         <div class="navbar-inner">
           <ul class="nav">
-            <li class="active" data-url="/quartermaster/recent_jobs">
+            <li class="active" data-url="/propeller/recent_jobs">
               <a href="#">Recent Jobs</a>
             </li>
             <li><a href="#">Job Failures</a></li>
@@ -49,23 +49,23 @@
 
       <div class="pull-left">
         <ul id="recent-jobs-type" class="nav-pills-active nav nav-pills pull-right">
-          <li class="active" data-url="/quartermaster/all">
+          <li class="active" data-url="/propeller/all">
             <a href="#">All</a>
           </li>
 
-          <li data-url="/quartermaster/completed">
+          <li data-url="/propeller/completed">
             <a href="#">Completed</a>
           </li>
 
-          <li data-url="/quartermaster/queued">
+          <li data-url="/propeller/queued">
             <a href="#">Queued</a>
           </li>
 
-          <li data-url="/quartermaster/failed">
+          <li data-url="/propeller/failed">
             <a href="#">Failed</a>
           </li>
 
-          <li data-url="/quartermaster/retired">
+          <li data-url="/propeller/retired">
             <a href="#">Retired</a>
           </li>
         </ul>
@@ -76,7 +76,7 @@
       <table id="recent-jobs-table" class="table">
         <thead>
           <tr>
-            <% Quartermaster.config.worker_job_class.recent_jobs_columns.each do |key, value| %>
+            <% Propeller.config.worker_job_class.recent_jobs_columns.each do |key, value| %>
               <th><%= key %></th>
             <% end %>
           </tr>

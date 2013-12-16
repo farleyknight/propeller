@@ -7,7 +7,7 @@ $(function() {
       .x(function(d) { return d[0] })
       .y(function(d) { return d[1] });
 
-    d3.json("/quartermaster/counts", function(data) {
+    d3.json("/propeller/counts", function(data) {
       d3.select("#worker-jobs-pie-chart svg")
         .datum(data)
         .transition().duration(1200)

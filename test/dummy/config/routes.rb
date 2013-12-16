@@ -1,4 +1,3 @@
 Rails.application.routes.draw do
-
-  mount Quartermaster::Engine => "/quartermaster"
+  mount Propeller::Engine => "/propeller"
 end
