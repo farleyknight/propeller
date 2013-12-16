@@ -78,14 +78,6 @@ module Quartermaster
           self.scheduled_at_date = other.to_date
         end
       end
-
-      def queue!(options)
-        create({
-          status:            "queued",
-          scheduled_at:      options[:datetime],
-          scheduled_at_date: options[:datetime]
-        }.merge(options))
-      end
     end
 
     # TODO: Rename scheduled_at to scheduled_for
@@ -101,6 +93,14 @@ module Quartermaster
           .where("status != 'reserved'")
           .where("status != 'retired'")
           .order("scheduled_at_date desc")
+      end
+
+      def queue!(options)
+        create({
+          status:            "queued",
+          scheduled_at:      options[:datetime],
+          scheduled_at_date: options[:datetime]
+        }.merge(options))
       end
 
       def throttle_limit(period)
