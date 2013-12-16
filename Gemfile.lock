@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    quartermaster (0.0.2f)
+    propeller (0.0.1)
       lumberjack
       rails (~> 4.0.0)
       twitter-bootstrap-rails
@@ -92,4 +92,4 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  quartermaster!
+  propeller!
