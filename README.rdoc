@@ -1,5 +1,0 @@
-= Quartermaster
-
-How to start a worker:
-
-$ WORKER_ID=1
