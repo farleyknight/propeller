@@ -1,3 +1,8 @@
 class WorkerJobsGenerator < Rails::Generators::NamedBase
+  include Rails::Generators::Migration
   source_root File.expand_path('../templates', __FILE__)
+
+  def copy_worker_jobs_migration
+    migration_template "migration.rb", "db/migrate/worker_jobs_create.rb"
+  end
 end
