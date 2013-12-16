@@ -5,7 +5,7 @@
 
 Run `rails g quartermaster:install` and you'll get:
 
-## Admin Panel
+### Admin Panel
 
 This line adds the Quartermaster admin panel `config/routes.rb`:
 
@@ -15,7 +15,7 @@ MyApp::Application.routes.draw do
 end
 ```
 
-## Initializer
+### Initializer
 
 This file configures Quartermaster for your setup:
 
