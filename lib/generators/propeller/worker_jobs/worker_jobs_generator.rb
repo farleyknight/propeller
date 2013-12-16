@@ -1,6 +1,6 @@
 module Propeller
   class WorkerJobsGenerator < Rails::Generators::Base
-    include Rails::Generators::Migration
+    include ActiveRecord::Generators::Base
     source_root File.expand_path('../templates', __FILE__)
 
     def copy_worker_jobs_migration
