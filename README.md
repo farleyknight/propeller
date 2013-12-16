@@ -43,8 +43,8 @@ This is how your jobs table will look in the database:
     t.datetime  "started_at_beginning_of_hour"
     t.datetime  "started_at_beginning_of_minute"
     t.string    "status"
-    t.datetime  "scheduled_at"
-    t.date      "scheduled_at_date"
+    t.datetime  "scheduled_for"
+    t.date      "scheduled_for_date"
     t.date      "started_at_beginning_of_day"
   end
 ```
