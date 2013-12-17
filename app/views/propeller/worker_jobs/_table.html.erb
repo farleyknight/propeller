@@ -1,6 +1,6 @@
 <% jobs.each do |job| %>
   <tr>
-    <% Quartermaster.config.worker_job_class.recent_jobs_columns.each do |key, value| %>
+    <% Propeller.config.worker_job_class.recent_jobs_columns.each do |key, value| %>
       <td><%= job.send(value) %></td>
     <% end %>
   </tr>
