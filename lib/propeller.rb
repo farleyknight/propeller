@@ -1,3 +1,5 @@
+require 'less-rails-bootstrap'
+
 require "propeller/engine"
 require "propeller/logging"
 require "propeller/config"

@@ -104,4 +104,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  jquery-rails
+  less-rails-bootstrap
   propeller!
+  therubyracer
