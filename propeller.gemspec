@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.0.0"
   s.add_dependency "lumberjack"
-  s.add_dependency "twitter-bootstrap-rails"
-  s.add_dependency "less-rails"
+  s.add_dependency "less-rails-bootstrap"
+  s.add_dependency "jquery-rails"
+  s.add_dependency "therubyracer"
 end
