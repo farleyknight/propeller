@@ -11,7 +11,7 @@ module Propeller
     end
 
     def generate_model
-      invoke "active_record:model", ["worker_job"], :migration => false
+      copy_file "worker_job.rb", "app/models/worker_job.rb"
     end
 
     def self.next_migration_number(dirname)
