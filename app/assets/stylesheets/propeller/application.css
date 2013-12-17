@@ -9,5 +9,5 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require propeller/nv.d3
- *= require propeller/bootstrap_overrides
+ *= require propeller/bootstrap
  */
