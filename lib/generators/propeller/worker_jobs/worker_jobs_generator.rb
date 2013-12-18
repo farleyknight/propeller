@@ -14,6 +14,10 @@ module Propeller
       copy_file "worker_job.rb", "app/models/worker_job.rb"
     end
 
+    def generate_app_worker
+      copy_file "app_worker.rb", "app/workers/app_worker.rb"
+    end
+
     def self.next_migration_number(dirname)
       ActiveRecord::Generators::Base.next_migration_number dirname
     end
