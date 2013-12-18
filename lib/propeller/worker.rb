@@ -9,15 +9,15 @@ module Propeller
     # Reduce the Propeller::Worker rake task to just one method: this one.
     def self.start!(env)
       raise "Cannot start Propeller::Worker without a WORKER_ID!" if env["WORKER_ID"].blank?
-      raise "Cannot start Propeller::Worker without a PIDFILE!"   if env["PIDFILE"].blank?
 
-      if env['PIDFILE']
-        File.open(env['PIDFILE'], 'w') do |f|
-          f << Process.pid
-        end
+      worker_id = env["WORKER_ID"]
+      pid_file  = Rails.root.join("tmp", "pids", "propeller-worker-#{worker_id}.pid")
+
+      File.open(pid_file, 'w') do |f|
+        f << Process.pid
       end
 
-      w = Worker.new(env["WORKER_ID"])
+      w = Worker.new(worker_id)
 
       at_exit do
         w.debug("Exiting..")

@@ -64,6 +64,7 @@ module Propeller
         end
       end
 
+      # Used to determine the average length of time to finish a job.
       def job_length
         ended_at - started_at
       end
@@ -71,11 +72,11 @@ module Propeller
       def datetime=(other)
         self[:datetime]        = other
         if other.is_a? String
-          self.scheduled_at      = DateTime.parse(other)
-          self.scheduled_at_date = Date.parse(other)
+          self.scheduled_for      = DateTime.parse(other)
+          self.scheduled_for_date = Date.parse(other)
         else
-          self.scheduled_at      = other
-          self.scheduled_at_date = other.to_date
+          self.scheduled_for      = other
+          self.scheduled_for_date = other.to_date
         end
       end
     end
@@ -95,18 +96,21 @@ module Propeller
           .order("scheduled_at_date desc")
       end
 
+      # Mark the job as queued
       def queue!(options)
         create({
-          status:            "queued",
-          scheduled_at:      options[:datetime],
-          scheduled_at_date: options[:datetime]
+          status:             "queued",
+          scheduled_for:      options[:datetime],
+          scheduled_for_date: options[:datetime]
         }.merge(options))
       end
 
+      # Check the throttle limit
       def throttle_limit(period)
         where("started_at between ? and ?", period.ago, Time.now).count
       end
 
+      # Job states
       def completed
         where(status: "completed")
       end
@@ -125,6 +129,19 @@ module Propeller
 
       def retired
         where(status: "retired")
+      end
+
+      # Reports
+      def hourly_report
+        HourlyReport.new.hourly_report
+      end
+
+      def daily_report
+        DailyReport.new.daily_report
+      end
+
+      def minutely_report
+        MinutelyReport.new.minutely_report
       end
     end
   end
