@@ -9,6 +9,20 @@ module Propeller
       worker_job_class_name.constantize
     end
 
+    def report_days_ago
+      7
+    end
+
+    def report_hours_ago
+      # Three days worth of hour chart
+      3 * 24
+    end
+
+    def report_minutes_ago
+      # Four hours worth of minute chart
+      4 * 60
+    end
+
     def worker_job_class_name
       @worker_job_class_name || "WorkerJob"
     end
