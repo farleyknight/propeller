@@ -48,3 +48,18 @@ This is how your jobs table will look in the database:
     t.date      "started_at_beginning_of_day"
   end
 ```
+
+### Job Failures table
+
+Whenever a job fails, it'll get logged to the database as well:
+
+```ruby
+  create_table "job_failures", force: true do |t|
+    t.integer  "worker_job_id"
+    t.string   "error_class"
+    t.text     "backtrace"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+```
