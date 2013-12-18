@@ -7,11 +7,19 @@ module Propeller
     source_root File.expand_path('../templates', __FILE__)
 
     def copy_worker_jobs_migration
-      migration_template "migration.rb", "db/migrate/worker_job.rb"
+      migration_template "worker_migration.rb", "db/migrate/worker_job.rb"
     end
 
-    def generate_model
+    def copy_job_failures_migration
+      migration_template "failure_migration.rb", "db/migrate/job_failure.rb"
+    end
+
+    def generate_worker_job
       copy_file "worker_job.rb", "app/models/worker_job.rb"
+    end
+
+    def generate_job_failure
+      copy_file "job_failure.rb", "app/models/job_failure.rb"
     end
 
     def generate_app_worker

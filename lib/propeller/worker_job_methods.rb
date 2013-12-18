@@ -6,9 +6,10 @@ module Propeller
     def self.included(base)
       base.class_eval do
         has_many :job_failures
+        alias :failures :job_failures
       end
       base.send :include, InstanceMethods
-      base.send :extend, ClassMethods
+      base.send :extend,  ClassMethods
     end
   end
 end

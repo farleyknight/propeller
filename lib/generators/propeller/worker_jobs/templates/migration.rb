@@ -1,6 +1,9 @@
+# TODO: Rename this file to worker_migration.rb
+
 class CreateWorkerJobs < ActiveRecord::Migration
   def change
     create_table :worker_jobs do |t|
+      t.string    :klass
       t.timestamp :started_at
       t.timestamp :ended_at
       t.datetime  :started_at_beginning_of_minute
