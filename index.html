@@ -1,92 +1,106 @@
 <!doctype html>
-<!-- The Time Machine GitHub pages theme was designed and developed by Jon Rohan, on Feb 7, 2012. -->
-<!-- Follow him for fun. http://twitter.com/jonrohan. Tail his code on http://github.com/jonrohan -->
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Propeller by farleyknight</title>
 
-  <link rel="stylesheet" href="stylesheets/stylesheet.css" media="screen">
-  <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascripts/script.js"></script>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
 
-  <title>Propeller</title>
-  <meta name="description" content="Database-backed job queue system with throttling">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Propeller</h1>
+        <p>Database-backed job queue system with throttling</p>
+        <p class="view"><a href="https://github.com/farleyknight/propeller">View the Project on GitHub <small>farleyknight/propeller</small></a></p>
+        <ul>
+          <li><a href="https://github.com/farleyknight/propeller/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/farleyknight/propeller/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/farleyknight/propeller">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="propeller" class="anchor" href="#propeller"><span class="octicon octicon-link"></span></a>Propeller</h1>
 
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-</head>
-
-<body>
-
-  <div class="wrapper">
-    <header>
-      <h1 class="title">Propeller</h1>
-    </header>
-    <div id="container">
-      <p class="tagline">Database-backed job queue system with throttling</p>
-      <div id="main" role="main">
-        <div class="download-bar">
-        <div class="inner">
-          <a href="https://github.com/farleyknight/propeller/tarball/master" class="download-button tar"><span>Download</span></a>
-          <a href="https://github.com/farleyknight/propeller/zipball/master" class="download-button zip"><span>Download</span></a>
-          <a href="https://github.com/farleyknight/propeller" class="code">View Propeller on GitHub</a>
-        </div>
-        <span class="blc"></span><span class="trc"></span>
-        </div>
-        <article class="markdown-body">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>Run <code>rails g propeller:install</code> and you'll get:</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="initializer" class="anchor" href="#initializer"><span class="octicon octicon-link"></span></a>Initializer</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>This file configures Propeller for your setup:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">Propeller</span><span class="o">.</span><span class="n">config</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">worker_job_class_name</span> <span class="o">=</span> <span class="s2">"WorkerJob"</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">throttle_limits</span>       <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">1</span><span class="o">.</span><span class="n">minute</span> <span class="o">=&gt;</span> <span class="mi">14</span>
+  <span class="p">}</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">polling_interval</span>      <span class="o">=</span> <span class="mi">2</span><span class="o">.</span><span class="n">seconds</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">throttle_interval</span>     <span class="o">=</span> <span class="mi">1</span><span class="o">.</span><span class="n">second</span>
+  <span class="n">c</span><span class="o">.</span><span class="n">idle_period</span>           <span class="o">=</span> <span class="mi">5</span><span class="o">.</span><span class="n">minutes</span>
+<span class="k">end</span>
+</pre></div>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="admin-panel" class="anchor" href="#admin-panel"><span class="octicon octicon-link"></span></a>Admin Panel</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>This line adds the Propeller admin panel <code>config/routes.rb</code>:</p>
+
+<div class="highlight highlight-ruby"><pre><span class="no">MyApp</span><span class="o">::</span><span class="no">Application</span><span class="o">.</span><span class="n">routes</span><span class="o">.</span><span class="n">draw</span> <span class="k">do</span>
+  <span class="n">mount</span> <span class="no">Propeller</span><span class="o">::</span><span class="no">Engine</span> <span class="o">=&gt;</span> <span class="s2">"/propeller"</span>
+<span class="k">end</span>
+</pre></div>
 
 <h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a name="worker-job-table" class="anchor" href="#worker-job-table"><span class="octicon octicon-link"></span></a>Worker Job table</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>This is how your jobs table will look in the database:</p>
+
+<div class="highlight highlight-ruby"><pre>  <span class="n">create_table</span> <span class="s2">"worker_jobs"</span><span class="p">,</span> <span class="ss">force</span><span class="p">:</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">timestamp</span> <span class="s2">"created_at"</span><span class="p">,</span>          <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">timestamp</span> <span class="s2">"updated_at"</span><span class="p">,</span>          <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">timestamp</span> <span class="s2">"started_at"</span><span class="p">,</span>          <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">timestamp</span> <span class="s2">"ended_at"</span><span class="p">,</span>            <span class="ss">null</span><span class="p">:</span> <span class="kp">false</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span>  <span class="s2">"started_at_beginning_of_hour"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span>  <span class="s2">"started_at_beginning_of_minute"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">string</span>    <span class="s2">"status"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span>  <span class="s2">"scheduled_for"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">date</span>      <span class="s2">"scheduled_for_date"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">date</span>      <span class="s2">"started_at_beginning_of_day"</span>
+  <span class="k">end</span>
+</pre></div>
 
 <h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a name="job-failures-table" class="anchor" href="#job-failures-table"><span class="octicon octicon-link"></span></a>Job Failures table</h3>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </article>
-      </div>
+<p>Whenever a job fails, it'll get logged to the database as well:</p>
+
+<div class="highlight highlight-ruby"><pre>  <span class="n">create_table</span> <span class="s2">"job_failures"</span><span class="p">,</span> <span class="ss">force</span><span class="p">:</span> <span class="kp">true</span> <span class="k">do</span> <span class="o">|</span><span class="n">t</span><span class="o">|</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">integer</span>  <span class="s2">"worker_job_id"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">string</span>   <span class="s2">"error_class"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">text</span>     <span class="s2">"backtrace"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">text</span>     <span class="s2">"message"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">"created_at"</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">datetime</span> <span class="s2">"updated_at"</span>
+  <span class="k">end</span>
+</pre></div>
+      </section>
     </div>
     <footer>
-      <div class="owner">
-      <p><a href="https://github.com/farleyknight" class="avatar"><img src="https://avatars1.githubusercontent.com/u/16414?v=1&amp;s=60" width="48" height="48"></a> <a href="https://github.com/farleyknight">farleyknight</a> maintains <a href="https://github.com/farleyknight/propeller">Propeller</a></p>
-
-
-      </div>
-      <div class="creds">
-        <small>This page generated using <a href="http://pages.github.com/">GitHub Pages</a><br>theme by <a href="https://twitter.com/jonrohan/">Jon Rohan</a></small>
-      </div>
+      <p>Project maintained by <a href="https://github.com/farleyknight">farleyknight</a></p>
+      <p>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
     </footer>
-  </div>
-  <div class="current-section">
-    <a href="#top">Scroll to top</a>
-    <a href="https://github.com/farleyknight/propeller/tarball/master" class="tar">tar</a><a href="https://github.com/farleyknight/propeller/zipball/master" class="zip">zip</a><a href="" class="code">source code</a>
-    <p class="name"></p>
-  </div>
-
-  
-</body>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
 </html>
