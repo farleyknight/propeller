@@ -7,8 +7,9 @@ module Propeller
     end
 
     def mutual
-      # Use Lumberjack::Logger as it writes faster to the log file. Using
-      # Rails::Logger can cause some buffering which results in lag.
+      # Use Lumberjack::Logger as it writes faster to the log file.
+      # Using Rails::Logger can cause some buffering which results
+      # in lag.
       @mutual ||= Lumberjack::Logger.new(Rails.root.join("log/propeller-workers.log"))
       @mutual.level = Lumberjack::Logger::DEBUG
       @mutual

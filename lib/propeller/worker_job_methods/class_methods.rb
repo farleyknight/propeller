@@ -69,7 +69,7 @@ module Propeller
           data             = []
 
           while current_hour <= end_hour
-            data    << [current_hour.to_i * 1000, query_data[current_hour]]
+            data << [current_hour.to_i * 1000, query_data[current_hour]]
             current_hour  += 1.hour
           end
 

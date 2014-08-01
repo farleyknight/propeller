@@ -114,8 +114,9 @@ module Propeller
       return true
     end
 
-    # The number of jobs performed is the number of jobs
-    # started within a given period
+    # The number of "jobs performed" is the number of jobs
+    # started within a given period.
+    #
     # Example:
     #
     # performed_jobs_count(1.hour) => # 500

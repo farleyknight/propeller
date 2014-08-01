@@ -6,11 +6,11 @@ module Propeller
     def self.included(base)
       base.class_eval do
         validates_presence_of :status
-        
+
         has_many :job_failures
         alias :failures :job_failures
       end
-      
+
       base.send :include, InstanceMethods
       base.send :extend,  ClassMethods
     end
