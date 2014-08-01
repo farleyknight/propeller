@@ -1,3 +1,4 @@
+require "spec_helper"
 
 describe "Worker" do
   pending "writes a pid file for the worker" do
@@ -18,19 +19,5 @@ describe "Worker" do
 
   pending "" do
 
-  end
-end
-
-
-
-# TODO: Put this in a separate file
-describe "Reports" do
-  describe "DailyReport" do
-  end
-
-  describe "HourlyReport" do
-  end
-
-  describe "MonthlyReport" do
   end
 end

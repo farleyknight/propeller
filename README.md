@@ -63,3 +63,11 @@ Whenever a job fails, it'll get logged to the database as well:
     t.datetime "updated_at"
   end
 ```
+
+## Running tests
+
+To run the propeller tests, run:
+
+```bash
+rake spec
+```
